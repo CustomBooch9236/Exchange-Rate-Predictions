@@ -14,7 +14,7 @@ These can be installed using pip or another package manager:
 
 # Usage
 
-To use this script, create a config.ini file in the same directory as the script with the following contents:
+To use this script, create a ```config.ini``` file in the same directory as the script with the following contents:
 ```
 [YahooFinance]
 symbol = INR=X
@@ -34,7 +34,7 @@ To run the script, use the following command:
 python exchange_rate_prediction.py
 ```
 
-The script will read the parameters from the config.ini file, download historical exchange rate data from Yahoo Finance, build a linear regression model using scikit-learn, and predict the exchange rate.
+The script will read the parameters from the ```config.ini``` file, download historical exchange rate data from Yahoo Finance, build a linear regression model using scikit-learn, and predict the exchange rate.
 
 The predicted exchange rate will be output to the console.
 
