@@ -1,18 +1,23 @@
+import yfinance as yf
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-import yfinance as yf
+import configparser
 
-# Downloading historical data from yahoo finance
-df = yf.download('INR=X', start='2015-01-01', end='2023-04-28')
+# Read config file
+config = configparser.ConfigParser()
+config.read('config.ini')
 
-# Creating a new column with the exchange rate between USD and INR
-df['Exchange_Rate'] = 1/df['Close']
+# Set parameters from config file
+symbol = config['YahooFinance']['symbol']
+start_date = config['YahooFinance']['start_date']
+end_date = config['YahooFinance']['end_date']
+test_size = float(config['Model']['test_size'])
+shuffle_data = bool(config['Model']['shuffle_data'])
 
-# Creating a new DataFrame with only the exchange rate column and date index
-df = df.loc[:, ['Exchange_Rate']]
-df.index.names = ['Date']
+# Download exchange rate data from Yahoo Finance
+df = yf.download(symbol, start=start_date, end=end_date)
 
 # Adding a new column with the lagged exchange rate
 df.loc[:, 'Lagged_Rate'] = df['Exchange_Rate'].shift(1)
